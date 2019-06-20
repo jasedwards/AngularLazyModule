@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild, ViewContainerRef} from '@angular/core';
+import {LazyLoaderService} from 'src/app/lazy-loader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'AngularLazyModule';
+  @ViewChild('container', {read: ViewContainerRef, static: false}) container: ViewContainerRef;
+
+  constructor(private loader: LazyLoaderService) {
+  }
+
+  load() {
+    this.container.clear();
+    this.loader.load('lazy-comp', this.container);
+  }
 }
