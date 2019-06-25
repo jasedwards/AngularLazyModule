@@ -9,11 +9,8 @@ import {LazyLoaderService} from 'src/app/lazy-loader.service';
 export class AppComponent {
   @ViewChild('container', {read: ViewContainerRef, static: false}) container: ViewContainerRef;
 
-  constructor(private loader: LazyLoaderService) {
+  constructor() {
   }
 
-  load() {
-    this.container.clear();
-    this.loader.load('lazy-comp', this.container);
-  }
+
 }

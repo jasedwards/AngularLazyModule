@@ -1,18 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {lazyArrayToObj} from 'src/app/lazy-widgets';
-import {LAZY_WIDGETS} from 'src/app/tokens';
+import {AppComponent} from './app.component';
+import {WidgetsModule} from 'src/app/widgets/widgets.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    WidgetsModule
   ],
-  providers: [{ provide: LAZY_WIDGETS, useFactory: lazyArrayToObj }],
+  providers: [SystemJsNgModuleLoader],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
