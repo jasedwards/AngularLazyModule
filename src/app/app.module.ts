@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader} from '@angular/core';
+import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {WidgetsModule} from 'src/app/widgets/widgets.module';
@@ -12,7 +12,7 @@ import {WidgetsModule} from 'src/app/widgets/widgets.module';
     BrowserModule,
     WidgetsModule
   ],
-  providers: [SystemJsNgModuleLoader],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

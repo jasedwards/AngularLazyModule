@@ -1,4 +1,4 @@
-import {Injectable, Compiler, Injector, Type, ViewContainerRef, NgModuleFactory, Inject} from '@angular/core';
+import {Injectable, Compiler, Injector, Type, ViewContainerRef, createComponent, EnvironmentInjector, Inject} from '@angular/core';
 import {LAZY_WIDGETS} from './tokens';
 
 @Injectable({providedIn: 'root'})
@@ -6,29 +6,29 @@ export class LazyLoaderService {
 
   constructor(private injector: Injector,
               private compiler: Compiler,
-              @Inject(LAZY_WIDGETS) private lazyWidgets: { [key: string]: () => Promise<NgModuleFactory<any> | Type<any>> }) {
+              private environmentInjector: EnvironmentInjector,
+              @Inject(LAZY_WIDGETS) private lazyWidgets: { [key: string]: () => Promise<Type<any>> }) {
   }
 
 
   async load(name: string, container: ViewContainerRef) {
-    const ngModuleOrNgModuleFactory = await this.lazyWidgets[name]();
+    const ngModule = await this.lazyWidgets[name]();
 
-    let moduleFactory;
+    let moduleRef;
+    
+    // Compile the module if needed
+    const moduleFactory = await this.compiler.compileModuleAsync(ngModule);
+    moduleRef = moduleFactory.create(this.environmentInjector);
 
-    if (ngModuleOrNgModuleFactory instanceof NgModuleFactory) {
-      moduleFactory = ngModuleOrNgModuleFactory;
-      console.log('it is');
-    } else {
-      console.log('it is not');
-      moduleFactory = await this.compiler.compileModuleAsync(ngModuleOrNgModuleFactory);
-    }
+    const entryComponent = (<any> ngModule).entry;
 
-    const entryComponent = (<any> moduleFactory.moduleType).entry;
-    const moduleRef = moduleFactory.create(this.injector);
-
-    const compFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(entryComponent);
-
-    const comp = container.createComponent(compFactory);
+    // Use the modern createComponent API
+    const componentRef = createComponent(entryComponent, {
+      environmentInjector: moduleRef.injector,
+      elementInjector: this.injector
+    });
+    
+    container.insert(componentRef.hostView);
   }
 
 }

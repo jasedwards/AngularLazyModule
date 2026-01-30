@@ -6,8 +6,7 @@ import {LazyModuleComponent} from 'src/app/lazy-module/lazy-module.component';
   declarations: [LazyModuleComponent],
   imports: [
     CommonModule
-  ],
-  entryComponents: [LazyModuleComponent]
+  ]
 })
 export class LazyModuleModule {
   static entry = LazyModuleComponent;
