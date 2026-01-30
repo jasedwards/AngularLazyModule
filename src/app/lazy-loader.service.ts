@@ -13,12 +13,10 @@ export class LazyLoaderService {
 
   async load(name: string, container: ViewContainerRef) {
     const ngModule = await this.lazyWidgets[name]();
-
-    let moduleRef;
     
     // Compile the module if needed
     const moduleFactory = await this.compiler.compileModuleAsync(ngModule);
-    moduleRef = moduleFactory.create(this.environmentInjector);
+    const moduleRef = moduleFactory.create(this.environmentInjector);
 
     const entryComponent = (<any> ngModule).entry;
 
