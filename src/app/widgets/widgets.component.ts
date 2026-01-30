@@ -5,7 +5,8 @@ import {lazyWidgets} from 'src/app/lazy-widgets';
 @Component({
   selector: 'app-widgets',
   templateUrl: './widgets.component.html',
-  styleUrls: ['./widgets.component.scss']
+  styleUrls: ['./widgets.component.scss'],
+  standalone: false
 })
 export class WidgetsComponent {
   @ViewChild('container', {read: ViewContainerRef, static: false}) container: ViewContainerRef;

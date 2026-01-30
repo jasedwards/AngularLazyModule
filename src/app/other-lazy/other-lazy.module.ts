@@ -6,8 +6,7 @@ import {OtherLazyComponent} from 'src/app/other-lazy/other-lazy.component';
   declarations: [OtherLazyComponent],
   imports: [
     CommonModule
-  ],
-  entryComponents: [OtherLazyComponent]
+  ]
 })
 export class OtherLazyModule {
   static entry = OtherLazyComponent;

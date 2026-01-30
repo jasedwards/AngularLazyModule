@@ -1,6 +1,6 @@
-import { NgModuleFactory, Type } from '@angular/core';
+import { Type } from '@angular/core';
 
-export const lazyWidgets: { name: string, loadChildren: () => Promise<NgModuleFactory<any> | Type<any>> }[] = [
+export const lazyWidgets: { name: string, loadChildren: () => Promise<Type<any>> }[] = [
   {
     name: 'lazy-comp',
     loadChildren: () => import('./lazy-module/lazy-module.module').then(m => m.LazyModuleModule)
@@ -12,7 +12,7 @@ export const lazyWidgets: { name: string, loadChildren: () => Promise<NgModuleFa
 ];
 
 export function lazyArrayToObj() {
-  const result = {};
+  const result: { [key: string]: () => Promise<Type<any>> } = {};
   for (const w of lazyWidgets) {
     result[w.name] = w.loadChildren;
   }

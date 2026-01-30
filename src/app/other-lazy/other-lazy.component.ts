@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-other-lazy',
   templateUrl: './other-lazy.component.html',
-  styleUrls: ['./other-lazy.component.scss']
+  styleUrls: ['./other-lazy.component.scss'],
+  standalone: false
 })
 export class OtherLazyComponent implements OnInit {
 
