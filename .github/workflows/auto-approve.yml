@@ -2,7 +2,7 @@ name: Auto Approve Pull Requests
 
 on:
   pull_request_target:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types: [opened, reopened, ready_for_review]
 
 permissions:
   pull-requests: write
@@ -10,6 +10,7 @@ permissions:
 jobs:
   auto-approve:
     runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]' || github.actor == 'github-actions[bot]'
     steps:
       - name: Auto approve
         uses: hmarr/auto-approve-action@v4
