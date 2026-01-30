@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
+## Automated Pull Request Approval
+
+This repository uses GitHub Actions to automatically approve pull requests from trusted sources (Dependabot and GitHub Actions bots). The workflow is configured to approve PRs when they are opened, reopened, or marked ready for review.
+
+To modify the auto-approval settings, edit `.github/workflows/auto-approve.yml`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
